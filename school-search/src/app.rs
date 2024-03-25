@@ -1,7 +1,5 @@
 use std::cmp::Ordering;
 
-use eframe::egui;
-
 use crate::search::setup_database;
 use crate::search::Database;
 use crate::search::School;
@@ -87,7 +85,7 @@ impl eframe::App for App {
             egui::menu::bar(ui, |ui| {
                 ui.menu_button("File", |ui| {
                     if ui.button("Quit").clicked() {
-                        frame.close();
+                        std::process::exit(0);
                     }
                     if ui.button("Toggle Theme").clicked() {
                         settings.dark_mode = !settings.dark_mode;
