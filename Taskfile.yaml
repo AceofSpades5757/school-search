@@ -25,6 +25,10 @@ tasks:
       - task: os:sign
       - task: package
   build:
+    cmds:
+      - task: build-bin
+      - task: os:build
+  build-bin:
     desc: "Build release binary."
     silent: true
     cmds:
@@ -43,6 +47,7 @@ tasks:
       - cd ./dist && zip --recurse-paths ./{{OS}}-v{{.VERSION}}.zip ./{{.BIN}}
       # Clean
       - rm ./dist/{{.BIN}}
+      - task: os:package
   dev:
     desc: "Run local development version."
     env:

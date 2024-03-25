@@ -10,3 +10,7 @@ tasks:
     cmds:
       - echo "Signing..."
       - codesign -s $MAC_IDENTITY --verbose --force "./target/release/{{.BIN}}"
+  build:
+    # Noop
+  package:
+    # Noop

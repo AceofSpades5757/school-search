@@ -2,6 +2,14 @@ version: "3"
 
 tasks:
   sign:
+    desc: "Sign releases."
+    silent: true
+    preconditions:
+      - test -f "./CERTIFICATE.pfx"
+    cmds:
+      - task: sign-bin
+      - task: sign-msi
+  sign-bin:
     desc: "Sign release binary."
     silent: true
     preconditions:
@@ -9,3 +17,34 @@ tasks:
     cmds:
       - echo "Signing..."
       - cmd.exe /S /C "signtool.exe sign /f CERTIFICATE.pfx "./target/release/{{.BIN}}""
+  sign-msi:
+    desc: "Sign release installer."
+    silent: true
+    preconditions:
+      - test -f "./CERTIFICATE.pfx"
+    cmds:
+      - echo "Signing..."
+      - cmd.exe /S /C "signtool.exe sign /f CERTIFICATE.pfx "./dist/*.msi""
+  build:
+    cmds:
+      - task: build-msi
+  build-msi:
+    desc: "Build release installer."
+    silent: true
+    cmds:
+      - echo "Building..."
+      - cargo build --release
+  package:
+    desc: "Package release build artifacts."
+    silent: true
+    cmds:
+      - task: package-msi
+  package-msi:
+    desc: "Package release installer."
+    silent: true
+    cmds:
+      - echo "Packaging..."
+      # Setup
+      - mkdir -p ./dist
+      # Move
+      - cp ./target/wix/*.msi ./dist/
