@@ -1,0 +1,6 @@
+[workspace]
+
+members = [
+    "school-search",
+    "scripts",
+]
