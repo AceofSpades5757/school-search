@@ -71,6 +71,10 @@
         <Property Id='DiskPrompt' Value='School Search Installation'/>
 
         <Directory Id='TARGETDIR' Name='SourceDir'>
+			<!-- Step 1 -->
+			<Directory Id="ProgramMenuFolder">
+				<Directory Id="ApplicationProgramsFolder" Name="School Search"/>
+			</Directory>
             <Directory Id='$(var.PlatformProgramFilesFolder)' Name='PFiles'>
                 <Directory Id='APPLICATIONFOLDER' Name='School Search'>
                     <!--
@@ -112,6 +116,20 @@
             </Directory>
         </Directory>
 
+		<!-- Step 2 -->
+		<DirectoryRef Id="ApplicationProgramsFolder">
+		    <Component Id="ApplicationShortcut" Guid='*'>
+		        <Shortcut Id="ApplicationStartMenuShortcut"
+		                  Name="School Search"
+		                  Description="Search tool for world schools with blazing speed and class."
+		                  Icon="ProductICO"
+		                  Target="[#exe0]"
+		                  WorkingDirectory="TARGETDIR"/>
+		        <RemoveFolder Id="CleanUpShortCut" Directory="ApplicationProgramsFolder" On="uninstall"/>
+		        <RegistryValue Root="HKCU" Key="Software\AceofSpades5757\SchoolSearch" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+		    </Component>
+		</DirectoryRef>
+
         <Feature
             Id='Binaries'
             Title='Application'
@@ -127,6 +145,9 @@
             -->
             <ComponentRef Id='License'/>
             
+			<!-- Step 3 -->
+			<ComponentRef Id="ApplicationShortcut" />
+
             <ComponentRef Id='binary0'/>
 
             <Feature
@@ -148,8 +169,8 @@
           The product icon is the graphic that appears in the Add/Remove
           Programs control panel for the application.
         -->
-        <!--<Icon Id='ProductICO' SourceFile='wix\Product.ico'/>-->
-        <!--<Property Id='ARPPRODUCTICON' Value='ProductICO' />-->
+        <Icon Id='ProductICO' SourceFile='school-search\src\favicon.ico'/>
+        <Property Id='ARPPRODUCTICON' Value='ProductICO' />
 
         <Property Id='ARPHELPLINK' Value='https://github.com/AceofSpades5757/school-search'/>
         
