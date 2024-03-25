@@ -13,6 +13,7 @@ license = "MIT"
 
 [dependencies]
 # UI
+egui = { version = "0.26.2", features = ["persistence"] }
 eframe = { version = "0.26.2", features = ["persistence"] }
 # Deserialization
 serde = { version = "1.0.197", features = [
