@@ -13,26 +13,26 @@ license = "MIT"
 
 [dependencies]
 # UI
-eframe = { version = "0.19.0", features = ["persistence"] }
+eframe = { version = "0.26.2", features = ["persistence"] }
 # Deserialization
-serde = { version = "1", features = [
+serde = { version = "1.0.197", features = [
     "derive",
 ] } # You only need this if you want app persistence
-serde_json = "1.0"
+serde_json = "1.0.114"
 # Extras for egui
-egui_extras = "0.18.0"
+egui_extras = "0.26.2"
 # Search Engine
 milli = { git = "https://github.com/meilisearch/milli", tag = "v0.31.1" }
 # Data Storage (milli)
-obkv = "0.2"
+obkv = "0.2.1"
 # Platform-Specific Directories
-dirs = "4.0"
+dirs = "5.0.1"
 # Clipboard Support
 clipboard = "0.5.0"
 # Images
-image = "0.24.2"
+image = "0.25.0"
 # Temp Files/Dirs
-tempfile = "3.3.0"
+tempfile = "3.10.1"
 
 
 [package.metadata.bundle]
