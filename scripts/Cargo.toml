@@ -1,0 +1,16 @@
+[package]
+name = "scripts"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+reqwest = { version = "0.11.12", features = ["blocking"], optional = true}
+serde = { version = "1.0.144", optional = true}
+serde_json = { version = "1.0.85", optional = true}
+
+[features]
+update_data = ["reqwest", "serde", "serde_json"]
+
+[[bin]]
+name = "update_data"
+required-features = ["update_data"]
