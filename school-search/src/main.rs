@@ -1,6 +1,6 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")] // hide console window on Windows in release
 
-fn main() {
+fn main() -> Result<(), eframe::Error> {
     let mut native_options = eframe::NativeOptions::default();
 
     #[cfg(target_os = "windows")]
@@ -19,7 +19,7 @@ fn main() {
         "School Search",
         native_options,
         Box::new(|cc| Box::new(school_search::App::new(cc))),
-    );
+    )
 }
 
 fn load_icon_from_bytes(
