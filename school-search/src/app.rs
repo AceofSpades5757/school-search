@@ -145,8 +145,16 @@ impl eframe::App for App {
                     });
 
                     ui.horizontal(|ui| {
-                        ui.label(egui::RichText::new("Web Sites:").strong().size(16.0));
-                        ui.label(&result.web_pages.join(", "));
+                        ui.label(
+                            egui::RichText::new("Web Sites:").strong().size(16.0)
+                        );
+                        for site in &result.web_pages {
+                            let link = egui::Hyperlink::from_label_and_url(
+                                site.to_string(),
+                                site.to_string(),
+                            );
+                            ui.add(link);
+                        }
                     });
 
                     ui.horizontal(|ui| {
