@@ -9,7 +9,6 @@ repository = "https://github.com/AceofSpades5757/school-search"
 keywords = ["school", "university", "search"]
 publish = true
 license = "MIT"
-license-file = "LICENSE"
 
 
 [dependencies]
