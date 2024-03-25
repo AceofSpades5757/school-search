@@ -21,7 +21,6 @@ pub struct School {
     pub state_province: Option<String>,
     pub domains: Vec<String>,
     pub web_pages: Vec<String>,
-    pub acronyms: Vec<String>,
 }
 
 impl From<KvReader<'_, u16>> for School {
@@ -44,12 +43,6 @@ impl From<KvReader<'_, u16>> for School {
         } else {
             web_pages = Vec::new();
         }
-        let acronyms: Vec<String>;
-        if let Some(data) = reader.get(7u16) {
-            acronyms = serde_json::from_slice(data).unwrap();
-        } else {
-            acronyms = Vec::new();
-        }
 
         School {
             id,
@@ -59,7 +52,6 @@ impl From<KvReader<'_, u16>> for School {
             state_province,
             domains,
             web_pages,
-            acronyms,
         }
     }
 }
