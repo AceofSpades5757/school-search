@@ -46,7 +46,7 @@
     <Product
         Id='*'
         Name='School Search'
-        UpgradeCode='24C999BB-9F28-457D-AFD2-09C1F3FD16DF'
+        UpgradeCode='97A043AA-9855-4A14-8D49-5F57BC014D09'
         Manufacturer='Kyle L. Davis &lt;aceofspades5757.github@gmail.com&gt;'
         Language='1033'
         Codepage='1252'
@@ -77,29 +77,23 @@
 			</Directory>
             <Directory Id='$(var.PlatformProgramFilesFolder)' Name='PFiles'>
                 <Directory Id='APPLICATIONFOLDER' Name='School Search'>
-
                     <!--
-                      Enabling the license sidecar file in the installer is a four step process:
+                      Disabling the license sidecar file in the installer is a two step process:
 
-                      1. Uncomment the `Component` tag and its contents.
-                      2. Change the value for the `Source` attribute in the `File` tag to a path
-                         to the file that should be included as the license sidecar file. The path
-                         can, and probably should be, relative to this file.
-                      3. Change the value for the `Name` attribute in the `File` tag to the
-                         desired name for the file when it is installed alongside the `bin` folder
-                         in the installation directory. This can be omitted if the desired name is
-                         the same as the file name.
-                      4. Uncomment the `ComponentRef` tag with the Id attribute value of "License"
-                         further down in this file.
+                      1. Comment out or remove the `Component` tag along with its contents.
+                      2. Comment out or remove the `ComponentRef` tag with the "License" Id
+                         attribute value further down in this file.
                     -->
-                    <!--
                     <Component Id='License' Guid='*'>
-                        <File Id='LicenseFile' Name='ChangeMe' DiskId='1' Source='C:\Path\To\File' KeyPath='yes'/>
+                        <File Id='LicenseFile'
+                            Name='License.rtf'
+                            DiskId='1'
+                            Source='school-search\wix\License.rtf'
+                            KeyPath='yes'/>
                     </Component>
-                    -->
 
                     <Directory Id='Bin' Name='bin'>
-                        <Component Id='Path' Guid='3A81EDA0-C45A-405A-984E-93EE35B43138' KeyPath='yes'>
+                        <Component Id='Path' Guid='5114FE75-9126-47CA-A909-20390793772E' KeyPath='yes'>
                             <Environment
                                 Id='PATH'
                                 Name='PATH'
@@ -145,12 +139,11 @@
             AllowAdvertise='no'
             Display='expand'
             Absent='disallow'>
-
             <!--
-              Uncomment the following `ComponentRef` tag to add the license
-              sidecar file to the installer.
+              Comment out or remove the following `ComponentRef` tag to remove
+              the license sidecar file from the installer.
             -->
-            <!--<ComponentRef Id='License'/>-->
+            <ComponentRef Id='License'/>
 
 			<!-- Step 3 -->
 			<ComponentRef Id="ApplicationShortcut" />
@@ -176,36 +169,30 @@
           The product icon is the graphic that appears in the Add/Remove
           Programs control panel for the application.
         -->
-        <Icon Id='ProductICO' SourceFile='src\favicon.ico'/>
+        <Icon Id='ProductICO' SourceFile='school-search\src\favicon.ico'/>
         <Property Id='ARPPRODUCTICON' Value='ProductICO' />
 
         <Property Id='ARPHELPLINK' Value='https://github.com/AceofSpades5757/school-search'/>
 
         <UI>
             <UIRef Id='WixUI_FeatureTree'/>
-
             <!--
-              Enabling the EULA dialog in the installer is a three step process:
+              Disabling the EULA dialog in the installer is a two step process:
 
-                1. Comment out or remove the two `Publish` tags that follow the
-                   `WixVariable` tag.
-                2. Uncomment the `<WixVariable Id='WixUILicenseRtf' Value='Path\to\Eula.rft'>` tag futher down
-                3. Replace the `Value` attribute of the `WixVariable` tag with
-                   the path to a RTF file that will be used as the EULA and
-                   displayed in the license agreement dialog.
+                 1. Uncomment the following two `Publish` tags
+                 2. Comment out or remove the `<WiXVariable Id='WixUILicenseRtf'...` tag further down
+
             -->
-            <Publish Dialog='WelcomeDlg' Control='Next' Event='NewDialog' Value='CustomizeDlg' Order='99'>1</Publish>
-            <Publish Dialog='CustomizeDlg' Control='Back' Event='NewDialog' Value='WelcomeDlg' Order='99'>1</Publish>
+            <!--<Publish Dialog='WelcomeDlg' Control='Next' Event='NewDialog' Value='CustomizeDlg' Order='99'>1</Publish>-->
+            <!--<Publish Dialog='CustomizeDlg' Control='Back' Event='NewDialog' Value='WelcomeDlg' Order='99'>1</Publish>-->
 
         </UI>
 
-
         <!--
-          Enabling the EULA dialog in the installer requires uncommenting
-          the following `WixUILicenseRTF` tag and changing the `Value`
-          attribute.
+          Disabling the EULA dialog in the installer requires commenting out
+          or removing the following `WixVariable` tag
         -->
-        <!-- <WixVariable Id='WixUILicenseRtf' Value='Relative\Path\to\Eula.rtf'/> -->
+        <WixVariable Id='WixUILicenseRtf' Value='school-search\wix\License.rtf'/>
 
 
         <!--
