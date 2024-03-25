@@ -9,7 +9,7 @@ fn main() {
         let format = image::ImageFormat::Ico;
         let bytes = include_bytes!("favicon.ico");
         if let Ok(icon) = load_icon_from_bytes(bytes, format) {
-            native_options.icon_data = Some(icon);
+            native_options.viewport.icon = Some(std::sync::Arc::new(icon));
         } else {
             // Failed to load the icon from bytes stored in the binary.
         }
@@ -25,7 +25,7 @@ fn main() {
 fn load_icon_from_bytes(
     bytes: &[u8],
     format: image::ImageFormat,
-) -> Result<eframe::IconData, image::error::ImageError> {
+) -> Result<egui::IconData, image::error::ImageError> {
     use image::GenericImageView;
 
     let (rgba, width, height) = {
@@ -35,7 +35,7 @@ fn load_icon_from_bytes(
         (rgba, width, height)
     };
 
-    Ok(eframe::IconData {
+    Ok(egui::IconData {
         rgba,
         width,
         height,
