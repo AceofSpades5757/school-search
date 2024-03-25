@@ -1,0 +1,44 @@
+[package]
+name = "school-search"
+description = "Search tool for world schools with blazing speed and class."
+version = "1.0.0"
+authors = ["Kyle L. Davis <aceofspades5757.github@gmail.com>"]
+edition = "2021"
+readme = "README.md"
+repository = "https://github.com/AceofSpades5757/school-search"
+keywords = ["school", "university", "search"]
+publish = true
+license = "MIT"
+license-file = "LICENSE"
+
+
+[dependencies]
+# UI
+eframe = { version = "0.19.0", features = ["persistence"] }
+# Deserialization
+serde = { version = "1", features = [
+    "derive",
+] } # You only need this if you want app persistence
+serde_json = "1.0"
+# Extras for egui
+egui_extras = "0.18.0"
+# Search Engine
+milli = { git = "https://github.com/meilisearch/milli", tag = "v0.31.1" }
+# Data Storage (milli)
+obkv = "0.2"
+# Platform-Specific Directories
+dirs = "4.0"
+# Clipboard Support
+clipboard = "0.5.0"
+# Images
+image = "0.24.2"
+# Temp Files/Dirs
+tempfile = "3.3.0"
+
+
+[package.metadata.bundle]
+# Using cargo-bundle for building a .app bundle for macOS
+# cargo-bundle
+name = "School Search"
+identifier = "aceofspades5757.school.search"
+icon = ["./src/favicon.ico"]
