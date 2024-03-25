@@ -24,7 +24,7 @@ tasks:
       - test -f "./CERTIFICATE.pfx"
     cmds:
       - echo "Signing..."
-      - cmd.exe /S /C "signtool.exe sign /f CERTIFICATE.pfx "./dist/*.msi""
+      - cmd.exe /S /C "signtool.exe sign /f CERTIFICATE.pfx "./target/wix/*.msi""
   build:
     cmds:
       - task: build-msi
@@ -33,7 +33,7 @@ tasks:
     silent: true
     cmds:
       - echo "Building..."
-      - cargo build --release
+      - cargo wix --package {{.NAME}}
   package:
     desc: "Package release build artifacts."
     silent: true
