@@ -1,0 +1,13 @@
+debug/
+target/
+
+Cargo.lock
+
+# MSVC Windows builds of rustc generate these, which store debugging information
+*.pdb
+
+# Security Certificates
+*.pfx
+
+# Misc
+.DS_Store
