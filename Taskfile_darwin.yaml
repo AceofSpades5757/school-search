@@ -1,0 +1,12 @@
+version: "3"
+
+tasks:
+  sign:
+    desc: "Sign release binary."
+    preconditions:
+      - sh: test ! -z "$MAC_IDENTITY"
+        msg: "Environment variable $MAC_IDENTITY has not been set."
+    silent: true
+    cmds:
+      - echo "Signing..."
+      - codesign -s $MAC_IDENTITY --verbose --force "./target/release/{{.BIN}}"

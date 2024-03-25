@@ -1,0 +1,11 @@
+version: "3"
+
+tasks:
+  sign:
+    desc: "Sign release binary."
+    silent: true
+    preconditions:
+      - test -f "./CERTIFICATE.pfx"
+    cmds:
+      - echo "Signing..."
+      - cmd.exe /S /C "signtool.exe sign /f CERTIFICATE.pfx "./target/release/{{.BIN}}""

@@ -1,0 +1,59 @@
+# go install github.com/go-task/task/v3/cmd/task@latest
+
+version: "3"
+
+vars:
+  TASK: task{{exeExt}}
+  NAME: school-search
+  BIN: school-search{{exeExt}}
+  VERSION: 1.0.4
+
+includes:
+  os: ./Taskfile_{{OS}}.yaml
+
+tasks:
+  default:
+    cmds:
+      - task: help
+  help:
+    desc: "HELP"
+    cmd: "{{.TASK}} --list-all"
+    silent: true
+  all:
+    cmds:
+      - task: build
+      - task: os:sign
+      - task: package
+  build:
+    desc: "Build release binary."
+    silent: true
+    cmds:
+      - echo "Building..."
+      - cargo build --release
+  package:
+    desc: "Package release build artifacts."
+    silent: true
+    cmds:
+      - echo "Packaging..."
+      # Setup
+      - mkdir -p ./dist
+      # Move
+      - cp ./target/release/{{.BIN}} ./dist/
+      # Compress
+      - cd ./dist && zip --recurse-paths ./{{OS}}-v{{.VERSION}}.zip ./{{.BIN}}
+      # Clean
+      - rm ./dist/{{.BIN}}
+  dev:
+    desc: "Run local development version."
+    env:
+      RUST_LOG: "1"
+    cmds:
+      - cargo run --release --bin {{.NAME}}
+  update:
+    desc: "Update data from the web."
+    cmds:
+      - cargo run --bin update_data --features update_data
+  clean:
+    desc: "Remove caches, build, and distribution artifacts, etc."
+    cmds:
+      - "cargo clean"
